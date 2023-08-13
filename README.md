@@ -1,6 +1,6 @@
 <h1 align="center">newsletter telegram bot</h1>
 
-# in dev stage rn
+# in dev stage rn | isn't deployed yet | isn't working yet
 
 ###
 
@@ -15,6 +15,8 @@
 </div>
 
 ###
+
+### you need to add this bot to your channel or group to begin using it
 
 ## project structure:
 
@@ -103,11 +105,9 @@ go run main.go
 
 ## contributing
 
-- Pull requests are welcome. For major changes, please open an issue first to
-  discuss what you would like to change.
+- pull requests are welcome. For major changes, please open an issue first to
+  discuss what you would like to change
 
 ## license
 
 - [MIT](https://choosealicense.com/licenses/mit/)
-
-#
