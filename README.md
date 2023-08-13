@@ -19,7 +19,16 @@
 ## project structure:
 
 ```
-
+.
+├── cmd
+│   └── main.go
+├── core
+│   └── core.go
+├── Dockerfile
+├── go.mod
+├── README.md
+└── tg
+    └── tg.go
 ```
 
 ## installation
@@ -32,11 +41,16 @@ git clone https://github.com/kenjitheman/animun
 
 ## usage
 
-- create .env file and inside you should create env variable with your api key ->
+- create .env file and inside you should create env variable with your api key
+  ->
+
 ```
 TELEGRAM_API_TOKEN=YOUR_TOKEN
 ```
-- then you should uncomment commented lines in tg/tg.go ( ! you need uncomment commented lines only if you using this way !) ->
+
+- then you should uncomment commented lines in tg/tg.go ( ! you need uncomment
+  commented lines only if you using this way !) ->
+
 ```
 package tg
 
@@ -64,17 +78,16 @@ func Start() {
 		log.Panic(err)
 	}
 ```
+
 ### you can also run it using docker ->
 
 - you need to paste your api key in dockerfile ->
-
 
 ```
 ENV TELEGRAM_API_TOKEN=YOUR_API_TOKEN
 ```
 
 - then run it ->
-
 
 ```
 docker build -t your_image_name .
@@ -90,10 +103,11 @@ go run main.go
 
 ## contributing
 
-- Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+- Pull requests are welcome. For major changes, please open an issue first to
+  discuss what you would like to change.
 
 ## license
 
 - [MIT](https://choosealicense.com/licenses/mit/)
+
 #
