@@ -1,7 +1,5 @@
 <h1 align="center">newsletter telegram bot</h1>
 
-# in dev stage rn | isn't deployed yet | isn't working yet
-
 ###
 
 <img align="right" height="250" src="https://media.tenor.com/k_h_hLhzhW4AAAAd/news.gif"  />
