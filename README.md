@@ -16,7 +16,17 @@
 
 ###
 
-### you need to add this bot to your channel or group to begin using it
+### you need to add usernames(optional) and chatIDs to users.json file like this:
+
+```
+``{
+  "users": {
+    "kenjitheman": 5785150199,
+    "username": chatID,
+    "optional_not_real_username": 3942049232
+  }
+}
+```
 
 ## project structure:
 
@@ -24,13 +34,13 @@
 .
 ├── cmd
 │   └── main.go
-├── core
-│   └── core.go
 ├── Dockerfile
 ├── go.mod
+├── go.sum
 ├── README.md
-└── tg
-    └── tg.go
+├── tg
+│   └── tg.go
+└── users.json
 ```
 
 ## installation
@@ -57,16 +67,20 @@ TELEGRAM_API_TOKEN=YOUR_TOKEN
 package tg
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/darenliang/jikan-go"
 	"github.com/enescakir/emoji"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	// "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
+)
 
-	"main.go/api"
+var (
+	isBotRunning      bool
+	creatorChatID     int64
+	newsletterContent string
 )
 
 func Start() {

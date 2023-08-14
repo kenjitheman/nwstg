@@ -1,6 +1,7 @@
 package tg
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -14,7 +15,7 @@ var (
 	isBotRunning      bool
 	creatorChatID     int64
 	newsletterContent string
-	userIDsToSend     map[int64]bool
+	chatIDsByUser     = make(map[string]int64)
 )
 
 func Start() {
@@ -89,31 +90,41 @@ func Start() {
 
 		case "send_newsletter":
 			if isBotRunning {
-				// if update.Message.Chat.ID != creatorChatID {
-					// continue
-				// }
 				msg.Text = "please enter the newsletter content:"
 				bot.Send(msg)
 
 				response := <-updates
 				if response.Message != nil {
 					newsletterContent = response.Message.Text
-					msg.Text = "newsletter content has been saved"
+					okEmoji := emoji.Sprintf("%v", emoji.GreenCircle)
+					msg.Text = okEmoji + " newsletter content has been sent to all users successfully"
 					bot.Send(msg)
 
-					userIDsToSend = make(map[int64]bool)
-
-					userIDsToSend[5785150199] = true // TODO: USER's IDs | you need to manually set this all IDs for now
-
-					for userID := range userIDsToSend {
-						individualMsg := tgbotapi.NewMessage(userID, newsletterContent)
-						bot.Send(individualMsg)
+					usersJSON, err := os.ReadFile("../users.json")
+					if err != nil {
+						log.Printf("[ERROR] error reading users.json: %v", err)
+						continue
 					}
 
-					msg.Text = "newsletter has been sent to all users"
-					bot.Send(msg)
+					var usersData struct {
+						Users map[string]int64 `json:"users"`
+					}
+
+					if err := json.Unmarshal(usersJSON, &usersData); err != nil {
+						log.Printf("[ERROR] error parsing users.json: %v", err)
+						continue
+					}
+
+					for _, chatID := range usersData.Users {
+						individualMsg := tgbotapi.NewMessage(
+							chatID,
+							newsletterContent,
+						)
+						bot.Send(individualMsg)
+					}
 				}
 			}
+
 		case "stop":
 			if isBotRunning {
 				stopEmoji := emoji.Sprintf("%v", emoji.RedCircle)
