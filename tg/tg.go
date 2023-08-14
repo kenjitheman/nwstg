@@ -11,8 +11,10 @@ import (
 )
 
 var (
-	isBotRunning  bool
-	creatorChatID int64
+	isBotRunning      bool
+	creatorChatID     int64
+	newsletterContent string
+	userIDsToSend     map[int64]bool
 )
 
 func Start() {
@@ -28,6 +30,7 @@ func Start() {
 
 	bot.Debug = true
 	isBotRunning = false
+	creatorChatID = 5785150199
 
 	generalKeyboard := tgbotapi.NewReplyKeyboard(
 		tgbotapi.NewKeyboardButtonRow(
@@ -83,9 +86,33 @@ func Start() {
 				msg.Text = infoEmoji + " newsletterman hints\n\n /help - to get all commands\n /start - to start newsletterman\n /stop - to stop newsletterman\n /send_newsletter - to send newsletter\n /support - to tell about bugs you found"
 				msg.ReplyMarkup = generalKeyboard
 			}
+
 		case "send_newsletter":
 			if isBotRunning {
-        msg.Text = "send_newsletter" // TODO: implement send_newsletter
+				// if update.Message.Chat.ID != creatorChatID {
+					// continue
+				// }
+				msg.Text = "please enter the newsletter content:"
+				bot.Send(msg)
+
+				response := <-updates
+				if response.Message != nil {
+					newsletterContent = response.Message.Text
+					msg.Text = "newsletter content has been saved"
+					bot.Send(msg)
+
+					userIDsToSend = make(map[int64]bool)
+
+					userIDsToSend[5785150199] = true // TODO: USER's IDs | you need to manually set this all IDs for now
+
+					for userID := range userIDsToSend {
+						individualMsg := tgbotapi.NewMessage(userID, newsletterContent)
+						bot.Send(individualMsg)
+					}
+
+					msg.Text = "newsletter has been sent to all users"
+					bot.Send(msg)
+				}
 			}
 		case "stop":
 			if isBotRunning {
@@ -98,7 +125,6 @@ func Start() {
 		case "support":
 			if isBotRunning {
 				cactusEmoji := emoji.Sprintf("%v", emoji.Cactus)
-				creatorChatID = 5785150199
 				msg.Text = cactusEmoji + " please describe the problem:"
 				bot.Send(msg)
 				for {
