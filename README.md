@@ -1,36 +1,16 @@
-<h1 align="center">newsletter telegram bot</h1>
-
-# in dev stage rn | isn't deployed yet | isn't working yet
-
-###
-
-<img align="right" height="250" src="https://media.tenor.com/k_h_hLhzhW4AAAAd/news.gif"  />
+## newsletter tg bot in golang
 
 ###
 
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" height="200" alt="go logo"  />
-  <img width="30" />
+  <img width="15" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="200" alt="docker logo"  />
 </div>
 
-###
-
-### you need to add usernames(optional) and chatIDs to users.json file like this:
-
-```
-``{
-  "users": {
-    "kenjitheman": 5785150199,
-    "username": chatID,
-    "optional_not_real_username": 3942049232
-  }
-}
-```
-
 ## project structure:
 
-```
+```go
 .
 ├── cmd
 │   └── main.go
@@ -45,25 +25,22 @@
 
 ## installation
 
-use git clone:
-
-```
-git clone https://github.com/kenjitheman/animun
+```shell
+git clone https://github.com/kenjitheman/newsman
 ```
 
 ## usage
 
-- create .env file and inside you should create env variable with your api key
-  ->
+- create .env file and inside you should create env variable with your api key:
 
-```
+```.env
 TELEGRAM_API_TOKEN=YOUR_TOKEN
 ```
 
-- then you should uncomment commented lines in tg/tg.go ( ! you need uncomment
-  commented lines only if you using this way !) ->
+- then you should uncomment commented lines in tg/tg.go \
+	- **( ! you need uncomment commented lines only if you using this way !)**
 
-```
+```go
 package tg
 
 import (
@@ -95,31 +72,43 @@ func Start() {
 	}
 ```
 
-### you can also run it using docker ->
+- you need to add usernames(optional) and chatIDs to users.json file like this:
+
+```json
+{
+  "users": {
+    "kenjitheman": 5785150199,
+    "username": chatID,
+    "optional_not_real_username": 3942049232
+  }
+}
+```
+
+### you can also run it using docker:
 
 - you need to paste your api key in dockerfile ->
 
-```
+```dockerfile
 ENV TELEGRAM_API_TOKEN=YOUR_API_TOKEN
 ```
 
-- then run it ->
+- then run it:
 
-```
+```shell
 docker build -t your_image_name .
 docker run -d -p 8080:80 your_image_name
 ```
 
 - or you can run it with the following command:
 
-```
+```shell
 cd cmd
 go run main.go
 ```
 
 ## contributing
 
-- pull requests are welcome. For major changes, please open an issue first to
+- pull requests are welcome, for major changes, please open an issue first to
   discuss what you would like to change
 
 ## license
