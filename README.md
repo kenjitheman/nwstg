@@ -10,7 +10,7 @@
 
 ## project structure:
 
-```
+```go
 .
 ├── cmd
 │   └── main.go
@@ -25,7 +25,7 @@
 
 ## installation
 
-```
+```shell
 git clone https://github.com/kenjitheman/newsletter_tgbot
 ```
 
@@ -33,14 +33,14 @@ git clone https://github.com/kenjitheman/newsletter_tgbot
 
 - create .env file and inside you should create env variable with your api key:
 
-```
+```.env
 TELEGRAM_API_TOKEN=YOUR_TOKEN
 ```
 
 - then you should uncomment commented lines in tg/tg.go \
 	- **( ! you need uncomment commented lines only if you using this way !)**
 
-```
+```go
 package tg
 
 import (
@@ -74,8 +74,8 @@ func Start() {
 
 - you need to add usernames(optional) and chatIDs to users.json file like this:
 
-```
-``{
+```json
+{
   "users": {
     "kenjitheman": 5785150199,
     "username": chatID,
@@ -88,20 +88,20 @@ func Start() {
 
 - you need to paste your api key in dockerfile ->
 
-```
+```dockerfile
 ENV TELEGRAM_API_TOKEN=YOUR_API_TOKEN
 ```
 
 - then run it:
 
-```
+```shell
 docker build -t your_image_name .
 docker run -d -p 8080:80 your_image_name
 ```
 
 - or you can run it with the following command:
 
-```
+```shell
 cd cmd
 go run main.go
 ```
