@@ -1,4 +1,4 @@
-<h3 align="center">newsletter tg bot</h3>
+## newsletter tg bot in golang
 
 ###
 
