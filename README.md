@@ -26,7 +26,7 @@
 ## installation
 
 ```shell
-git clone https://github.com/kenjitheman/newsletter_tgbot
+git clone https://github.com/kenjitheman/newsman
 ```
 
 ## usage
