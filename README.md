@@ -4,22 +4,22 @@
 
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" height="200" alt="go logo"  />
-  <img width="15" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="200" alt="docker logo"  />
 </div>
 
 ## project structure:
 
 ```go
 .
-├── cmd
-│   └── main.go
+├── bot
+│   ├── bot.go
+│   ├── keyboards.go
+│   └── vars.go
 ├── Dockerfile
 ├── go.mod
 ├── go.sum
+├── LICENSE
+├── main.go
 ├── README.md
-├── tg
-│   └── tg.go
 └── users.json
 ```
 
@@ -41,35 +41,15 @@ TELEGRAM_API_TOKEN=YOUR_TOKEN
 	- **( ! you need uncomment commented lines only if you using this way !)**
 
 ```go
-package tg
+//"github.com/joho/godotenv"
+```
 
-import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"os"
-
-	"github.com/enescakir/emoji"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/joho/godotenv"
-)
-
-var (
-	isBotRunning      bool
-	creatorChatID     int64
-	newsletterContent string
-)
-
-func Start() {
-	// err := godotenv.Load("../.env")
-	// if err != nil {
-	// 	fmt.Println("[ERROR] error loading .env file")
-	// 	log.Panic(err)
-	// }
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_API_TOKEN"))
-	if err != nil {
-		log.Panic(err)
-	}
+```go
+// err := godotenv.Load("../.env")
+// if err != nil {
+// 	fmt.Println("[ERROR] error loading .env file")
+// 	log.Panic(err)
+// }
 ```
 
 - you need to add usernames(optional) and chatIDs to users.json file like this:
@@ -84,27 +64,33 @@ func Start() {
 }
 ```
 
-### you can also run it using docker:
+- run it
 
-- you need to paste your api key in dockerfile ->
+```shell
+go run main.go
+```
+
+- or build and run
+
+```shell
+go build
+```
+
+```shell
+./newsman
+```
+
+### you can also run it using docker
 
 ```dockerfile
 ENV TELEGRAM_API_TOKEN=YOUR_API_TOKEN
 ```
-
-- then run it:
 
 ```shell
 docker build -t your_image_name .
 docker run -d -p 8080:80 your_image_name
 ```
 
-- or you can run it with the following command:
-
-```shell
-cd cmd
-go run main.go
-```
 
 ## contributing
 
