@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/btwkenji/newsman/bot"
+	"github.com/kenjitheman/newsman/bot"
 )
 
 func main() {
